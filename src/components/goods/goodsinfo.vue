@@ -10,11 +10,11 @@
     </div>
     <!-- 描述 -->
     <div class="dec">
-      <h3>荣耀</h3><hr>
+      <h3>{{goodsinfo.title}}</h3><hr>
       <div>
-        <div class="price">市场价格  销售价格</div>
+        <div class="price">市场价格:{{goodsinfo.sell_price}} &nbsp;  销售价格:{{goodsinfo.market_price}}</div>
         <div class="num">购买数量：<span>-</span><input type="text" v-model="num"><span>+</span></div>
-        <div><van-button type="default" size="small">立即购买</van-button><van-button type="danger" size="small" @click="ballmove">加入购物车</van-button></div>
+        <div><van-button type="default" size="small" >立即购买</van-button><van-button type="danger" size="small" @click="ballmove" :disabled="btnflag">加入购物车</van-button></div>
       </div>
       
     </div>
@@ -22,12 +22,12 @@
     <div>
       <h3>商品参数</h3><hr>
       <div>
-        <p>商品货号：   </p>
-        <p>库存情况：</p>
-        <p>上架时间：</p>
+        <p>商品货号：{{goodsinfo.goods_no}}  </p>
+        <p>库存情况：{{goodsinfo.stock_quantity}}</p>
+        <p>上架时间：{{goodsinfo.add_time | formytime('YYYY-MM-DD')}}</p>
       </div>
-      <div><van-button plain type="primary">朴素按钮</van-button>
-<van-button plain type="danger">朴素按钮</van-button></div>
+      <div id="btn"><van-button plain type="primary" size="normal" @click="togoodsdesc(id)">图文介绍</van-button>
+<van-button plain type="danger" size="normal" >商品评论</van-button></div>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@
 import Swiper from '../subcom/Swiper.vue'
 export default {
   data() {
-    return { id: this.$route.params.id,goodsinfo:[],num:1,lunbolist:[],ballflag:false };
+    return { id: this.$route.params.id,goodsinfo:[],num:1,lunbolist:[],ballflag:false,btnflag:false };
   },
   created(){
     this.getinfo(),
@@ -63,6 +63,8 @@ export default {
     },
     ballmove(){
       this.ballflag=!this.ballflag;
+      this.btnflag=true;
+      setTimeout(()=>{this.btnflag=false},1100)
     },
     bEnter(el){
       el.style.transform = "translate(0,0)"
@@ -79,6 +81,9 @@ export default {
     },
     aEnter(el){
       this.ballflag=!this.ballflag;
+    },
+    togoodsdesc(id){
+      this.$router.push('/home/goodsdesc/'+id)
     }
   },
   components:{Swiper}
@@ -86,6 +91,13 @@ export default {
 </script>
 
 <style lang='less' scoped>
+#btn{
+  display: flex;
+  justify-content: space-between;
+  button{
+    width: 49%;
+  }
+}
 .ball{
   width: 15px;
   height: 15px;
