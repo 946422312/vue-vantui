@@ -2,9 +2,9 @@
   <div class="comment">
     <h3>发表评论</h3>
     <hr>
-    <textarea placeholder="请输入要BB的内容（做多吐槽120字）" maxlength="120"></textarea>
+    <textarea placeholder="请输入要BB的内容（做多吐槽120字）" maxlength="120" v-model="msg"></textarea>
 
-    <van-button type="primary" size="large">发表评论</van-button>
+    <van-button type="primary" size="large" @click="postcomm">发表评论</van-button>
     <div class="cmt-list">
       <div class="cmt-item" v-for="(item,index) in infolist" :key="index">
         <div class="cmt-title">
@@ -15,7 +15,7 @@
         </div>
       </div>
       </div>
-      <van-button plain type="danger" size="large" @click="getmore">{{clickcount<=houtaiindex?'加载更多':'没有更多了'}}</van-button>
+      <van-button plain type="danger" size="large" @click="getmore" v-if="clickcount<houtaiindex">加载更多</van-button>
   
   </div>
 </template>
@@ -24,11 +24,12 @@
 import { Toast } from 'vant';
 export default {
   data(){
-    return {artid:1,infolist:[],houtaiindex:4,clickcount:1}
+    return {artid:this.id,infolist:[],houtaiindex:4,clickcount:1,msg:''}
   },
   created(){
     this.getcomment()
   },
+  props:['id'],
   methods:{
     async  getcomment(){
         const {body,body:{status,message}}= await this.$http.get(`api/getcomments/${this.artid}?pageindex=${this.clickcount}`)
@@ -48,6 +49,16 @@ export default {
       }else{
         return
       }
+    },
+    async postcomm(){
+      const {data,data:{status,message}}=await this.$http.post(`api/postcomment/${this.id}`,{content:this.msg})
+      console.log(data);
+      if(status===0){
+        console.log(this.infolist);
+        var cmt={user_name:'匿名用户',content:this.msg.trim()}
+        this.infolist.unshift(cmt)
+      }
+      
     }
   }
 };

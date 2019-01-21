@@ -1,16 +1,18 @@
 <template>
   <div>
-    <van-swipe class="swipe" :autoplay="3000" indicator-color="white">
+    <!-- <van-swipe class="swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in lunbolist" :key="item.img" class="item">
         <img :src="item.img" alt>
       </van-swipe-item>
-    </van-swipe>
+    </van-swipe> -->
+    <Swiper :lunbolist='lunbolist'></Swiper>
   <Gird></Gird>
   </div>
 </template>
 
 <script>
 import Gird from '../subcom/Gird.vue'
+import Swiper from '../subcom/Swiper.vue'
 import {Toast} from 'vant'
 export default {
   data: () => ({
@@ -33,7 +35,7 @@ export default {
       });
     }
   },
-  components:{Gird}
+  components:{Gird,Swiper}
 };
 </script>
 

@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <van-nav-bar title="长沙黑马" left-text="返回" left-arrow @click-right="onClickRight"/>
+    <van-nav-bar title="长沙黑马" left-text="返回" left-arrow @click-left="onClickRight"/>
     <transition enter-active-class="fadeInRight" leave-active-class="fadeOutLeft">
       <router-view class="animated"></router-view>
     </transition>
     <van-tabbar v-model="active">
       <van-tabbar-item icon="home-o" to="/home">首页</van-tabbar-item>
       <van-tabbar-item icon="user-o" dot to="/member">会员</van-tabbar-item>
-      <van-tabbar-item icon="cart-o" info="0" to="/cart">购物车</van-tabbar-item>
+      <van-tabbar-item icon="cart-o" info="0" to="/cart" id="cart">购物车</van-tabbar-item>
       <van-tabbar-item icon="search" to="/search">搜索</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -18,7 +18,9 @@ export default {
   name: "App",
 
   methods: {
-    onClickRight() {}
+    onClickRight() {
+      this.$router.go(-1);
+     }
   },
   data() {
     return {

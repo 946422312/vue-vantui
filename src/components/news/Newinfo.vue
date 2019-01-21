@@ -6,7 +6,7 @@
       <span>点击：{{newsinfo.click}}</span>
     </p>
     <p v-html="newsinfo.content"></p>
-    <comment></comment>
+    <comment :id='id'></comment>
   </div>
   
 </template>

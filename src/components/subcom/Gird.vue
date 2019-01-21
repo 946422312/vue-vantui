@@ -18,8 +18,8 @@ export default {
     return {
       list: [
         { src: 'static/images/menu1.png', msg: "新闻资讯", tosome: "/home/newlist" },
-        { src: 'static/images/menu2.png', msg: "图片分析", tosome: "home/2" },
-        { src: 'static/images/menu3.png', msg: "视频购买", tosome: "home/3" },
+        { src: 'static/images/menu2.png', msg: "图片分析", tosome: "/home/photolist" },
+        { src: 'static/images/menu3.png', msg: "视频购买", tosome: "home/goodslist" },
         { src: 'static/images/menu4.png', msg: "留言反馈", tosome: "home/4" },
         { src: 'static/images/menu5.png', msg: "视频专区", tosome: "home/5" },
         { src: 'static/images/menu6.png', msg: "我不知道", tosome: "home/6" }
