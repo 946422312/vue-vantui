@@ -7,13 +7,14 @@
     <van-tabbar v-model="active">
       <van-tabbar-item icon="home-o" to="/home">首页</van-tabbar-item>
       <van-tabbar-item icon="user-o" dot to="/member">会员</van-tabbar-item>
-      <van-tabbar-item icon="cart-o" info="0" to="/cart" id="cart">购物车</van-tabbar-item>
+      <van-tabbar-item icon="cart-o" :info="count" to="/cart" id="cart">购物车</van-tabbar-item>
       <van-tabbar-item icon="search" to="/search">搜索</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "App",
 
@@ -26,6 +27,11 @@ export default {
     return {
       active: 0
     };
+  },
+  computed:{
+    ...mapGetters([
+      'count'
+    ])
   }
 };
 </script>

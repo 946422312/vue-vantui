@@ -4,9 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueresource from 'vue-resource'
-import { NavBar ,Tabbar, TabbarItem ,Swipe, SwipeItem,Card,Button,Tab, Tabs,Lazyload} from 'vant';
+import { NavBar ,Tabbar, TabbarItem ,Swipe, SwipeItem,Card,Button,Tab, Tabs,Lazyload,Switch} from 'vant';
 import 'animate.css/animate.css'
 import moment from 'moment'
+import store from './store'
 // import axios from 'axios'
 Vue.use(vueresource)
 
@@ -20,7 +21,9 @@ Vue.
     use(SwipeItem).
     use(Tab).
     use(Tabs).
-    use(Lazyload);
+    use(Lazyload).
+    use(Switch ).
+    use(Card );
 
 Vue.config.productionTip = false
 Vue.http.options.root='http://127.0.0.1:5000/'
@@ -32,6 +35,7 @@ Vue.filter('formytime',(datastr,arg1='YYYY-MM-DD HH:mm:ss')=>{
 new Vue({
   el: '#app',
   router,
+  store,
   components: {App},
   template: '<App/>'
 })

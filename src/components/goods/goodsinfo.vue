@@ -13,7 +13,7 @@
       <h3>{{goodsinfo.title}}</h3><hr>
       <div>
         <div class="price">市场价格:{{goodsinfo.sell_price}} &nbsp;  销售价格:{{goodsinfo.market_price}}</div>
-        <div class="num">购买数量：<span>-</span><input type="text" v-model="num"><span>+</span></div>
+        <div class="num">购买数量：<span @click="sub">-</span><input type="number" min='1' v-model="num"><span @click="add">+</span></div>
         <div><van-button type="default" size="small" >立即购买</van-button><van-button type="danger" size="small" @click="ballmove" :disabled="btnflag">加入购物车</van-button></div>
       </div>
       
@@ -65,6 +65,12 @@ export default {
       this.ballflag=!this.ballflag;
       this.btnflag=true;
       setTimeout(()=>{this.btnflag=false},1100)
+      // 点击加入购物车传递过去的对象
+      let cartone={
+        id:this.id,
+        price:998,
+        num:this.num}
+        this.$store.commit('cart',cartone)
     },
     bEnter(el){
       el.style.transform = "translate(0,0)"
@@ -84,6 +90,17 @@ export default {
     },
     togoodsdesc(id){
       this.$router.push('/home/goodsdesc/'+id)
+    },
+    add(){
+      // this.$store.commit('add')
+      this.num++
+    },
+    sub(){
+      // this.$store.commit('sub')
+      if(this.num<=1){
+        return
+      }
+      this.num--
     }
   },
   components:{Swiper}

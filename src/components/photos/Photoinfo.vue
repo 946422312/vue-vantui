@@ -9,7 +9,7 @@
     <div class="content">{{info.content}}</div>
     <hr>图片区域
     <div class="hadle">
-        <img v-for='(item,index) in imglst' :key="item.src" :src="item.src" alt="" @click="view(index)">
+      <img v-for="(item,index) in imglst" :key="item.id" :src="item.src" @click="view(index)">
     </div>
     <comment :to="id"></comment>
   </div>
@@ -22,7 +22,7 @@ import { ImagePreview } from "vant";
 
 export default {
   data() {
-    return { id: this.$route.params.id, info: "",imglst:[] };
+    return { id: this.$route.params.id, info: "", imglst: [] };
   },
   created() {
     this.getinfo(), this.gethub();
@@ -30,42 +30,39 @@ export default {
   methods: {
     async getinfo() {
       const {
-        data: { status, message}
+        data: { status, message }
       } = await this.$http.get(`api/getimageInfo/${this.id}`);
       if (status == 0) {
         this.info = message;
         console.log(this.info);
-        
       } else {
         Toast("404");
       }
     },
-    gethub(){
-         this.$http.get(`api/getthumimages/${this.id}`).then(res => {
-          const {data: { status, message }} = res;
+    gethub() {
+      this.$http.get(`api/getthumimages/${this.id}`).then(res => {
+        const {
+          data: { status, message }
+        } = res;
+        if (status == 0) {
           console.log(message);
-            if(status===0){
-              this.imglst=message
-              console.log(this.imglst);
-              
-            }
-         })
+          this.imglst = message;
+        }
+      });
     },
     view(startPosition) {
       let images = [];
       this.imglst.forEach(item => {
-        if (item.src != null) {
-          images.push(item.src);
-        }
+        images.push(item.src);
       });
-
       ImagePreview({
         images,
-        startPosition
+        startPosition,
+        onClose() {
+          // do something
+        }
       });
     }
-
-    
   },
   components: { comment }
 };
@@ -86,8 +83,8 @@ export default {
     text-indent: 2em;
   }
 }
-.hadle{
-  img{
+.hadle {
+  img {
     width: 100px;
     height: 100px;
   }
