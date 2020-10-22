@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <van-nav-bar title="长沙黑马" left-text="返回" left-arrow @click-left="onClickRight"/>
+    <van-nav-bar title="长沙-岳麓区" left-text="返回" left-arrow @click-left="onClickRight"/>
     <transition enter-active-class="fadeInRight" leave-active-class="fadeOutLeft">
       <router-view class="animated"></router-view>
     </transition>
